@@ -992,6 +992,18 @@ a {
   -webkit-line-clamp: 3;
 }
 
+/* Aset foto formal memiliki siluet yang lebih lebar; beri ruang aman untuk judul desktop. */
+.anniversary-banner[data-layout="desktop"] .hero-copy {
+  left: 68px;
+}
+
+.anniversary-banner[data-layout="desktop"] .leaders {
+  right: -13px;
+  bottom: 0;
+  width: 220px;
+  height: 132px;
+}
+
 .anniversary-banner[data-layout^="tablet-"] .article-card,
 .anniversary-banner[data-layout="compact-1"] .article-card {
   grid-template-rows: 90px auto;
