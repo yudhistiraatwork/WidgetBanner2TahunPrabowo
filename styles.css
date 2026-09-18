@@ -208,7 +208,8 @@ a {
 .carousel-next,
 .carousel-previous {
   position: absolute;
-  top: 64px;
+  /* Carousel dimulai pada y=24px; tombol 24px ini dipusatkan pada thumbnail 90px. */
+  top: 33px;
   z-index: 3;
   display: grid;
   width: 24px;
@@ -1002,6 +1003,11 @@ a {
   bottom: 0;
   width: 220px;
   height: 132px;
+}
+
+/* Viewport desktop menyisakan 8px setelah tiga thumbnail; kompensasikan pada tombol next. */
+.anniversary-banner[data-layout="desktop"] .carousel-next {
+  right: -4px;
 }
 
 .anniversary-banner[data-layout^="tablet-"] .article-card,
