@@ -58,13 +58,19 @@ let swipeStartX = 0;
 let swipeStartY = 0;
 let isDragging = false;
 let layoutMode = getLayoutMode();
-let isMobileMode = layoutMode === 'mobile';
+let isPagedCarouselMode = isPagedCarouselLayout(layoutMode);
+let isSmallCarouselMode = isSmallCarouselLayout(layoutMode);
+let isSmallArticleView = false;
 
 function getLayoutMode() {
   const width = layoutContainer.clientWidth;
 
-  if (width < 600) {
+  if (width <= 412) {
     return 'mobile';
+  }
+
+  if (width < 600) {
+    return 'compact-1';
   }
 
   if (width < 720) {
@@ -82,7 +88,45 @@ function getLayoutMode() {
   return 'desktop';
 }
 
+function isPagedCarouselLayout(mode) {
+  return mode === 'mobile';
+}
+
+function isSmallCarouselLayout(mode) {
+  return mode === 'compact-1' || mode === 'tablet-1';
+}
+
+function getInitialCardCount() {
+  const width = layoutContainer.clientWidth;
+
+  if (width < 600) {
+    return 1;
+  }
+
+  if (width >= 1044 && width < 1120) {
+    return 3;
+  }
+
+  if (width < 1120) {
+    const availableWidth = width - 380;
+    return Math.max(1, Math.min(4, Math.floor((availableWidth + 8) / 168)));
+  }
+
+  return 3;
+}
+
+function getExpandedCardCount() {
+  const width = layoutContainer.clientWidth;
+  return Math.max(2, Math.min(3, Math.floor((width - 40) / 168)));
+}
+
+function updateCardCounts() {
+  banner.dataset.initialCards = String(getInitialCardCount());
+  banner.dataset.expandedCards = String(getExpandedCardCount());
+}
+
 banner.dataset.layout = layoutMode;
+updateCardCounts();
 
 function createArticleCard(article) {
   const card = document.createElement('a');
@@ -107,10 +151,18 @@ articles.forEach((article) => track.append(createArticleCard(article)));
 articles.forEach((article) => mobilePageTrack.append(createArticleCard(article)));
 
 function getMaxDesktopIndex() {
-  const cardWidth = 160;
-  const cardGap = 12;
-  const visibleCards = Math.max(1, Math.floor((desktopViewport.clientWidth + cardGap) / (cardWidth + cardGap)));
+  const firstCard = track.querySelector('.article-card');
+  const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : 160;
+  const cardGap = Number.parseFloat(getComputedStyle(track).gap) || 12;
+  const visibleCards = Math.max(1, Math.round((desktopViewport.clientWidth + cardGap) / (cardWidth + cardGap)));
   return Math.max(0, articles.length - visibleCards);
+}
+
+function getDesktopStep() {
+  const firstCard = track.querySelector('.article-card');
+  const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : 160;
+  const cardGap = Number.parseFloat(getComputedStyle(track).gap) || 12;
+  return cardWidth + cardGap;
 }
 
 function updateDesktopControls() {
@@ -123,27 +175,23 @@ function getMobilePageStart() {
   return mobilePageIndex * 2;
 }
 
+function getMobilePageStep() {
+  const firstCard = mobilePageTrack.querySelector('.article-card');
+  const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : 156;
+  const cardGap = Number.parseFloat(getComputedStyle(mobilePageTrack).gap) || 8;
+  return cardWidth + cardGap;
+}
+
 function updateMobileCarousel() {
   const isArticlePageVisible = mobilePageIndex >= 0;
   bannerContent.classList.toggle('is-page-view', isArticlePageVisible);
   mobilePageTrack.style.transform = isArticlePageVisible
-    ? `translateX(-${getMobilePageStart() * 164}px)`
+    ? `translateX(-${getMobilePageStart() * getMobilePageStep()}px)`
     : 'translateX(0)';
   mobilePagePreviousButton.disabled = !isArticlePageVisible;
   mobilePageNextButton.disabled = mobilePageIndex === 4;
-}
-
-function updateCarousel() {
-  if (isMobileMode) {
-    track.style.transform = 'translateX(0)';
-    updateMobileCarousel();
-    return;
-  }
-
-  bannerContent.classList.remove('is-page-view', 'is-dragging');
-  mobilePageTrack.style.transform = 'translateX(0)';
-  track.style.transform = `translateX(-${desktopIndex * 172}px)`;
-  updateDesktopControls();
+  previousButton.disabled = !isArticlePageVisible;
+  nextButton.disabled = mobilePageIndex === 4;
 }
 
 function showNextDesktopArticle() {
@@ -158,6 +206,77 @@ function showPreviousDesktopArticle() {
     desktopIndex -= 1;
     updateCarousel();
   }
+}
+
+function getSmallCarouselStep() {
+  return getInitialCardCount() >= 2 ? 2 : 1;
+}
+
+function getMaxSmallCarouselIndex() {
+  const visibleCards = Number.parseInt(banner.dataset.expandedCards, 10) || 2;
+  return Math.max(0, articles.length - visibleCards);
+}
+
+function showNextSmallArticle() {
+  if (!isSmallArticleView) {
+    isSmallArticleView = true;
+    desktopIndex = 0;
+    updateCarousel();
+    return;
+  }
+
+  const maxIndex = getMaxSmallCarouselIndex();
+  if (desktopIndex < maxIndex) {
+    desktopIndex = Math.min(desktopIndex + getSmallCarouselStep(), maxIndex);
+    updateCarousel();
+  }
+}
+
+function showPreviousSmallArticle() {
+  if (!isSmallArticleView) {
+    return;
+  }
+
+  if (desktopIndex === 0) {
+    isSmallArticleView = false;
+    desktopIndex = 0;
+    updateCarousel();
+    return;
+  }
+
+  const maxIndex = getMaxSmallCarouselIndex();
+  const step = getSmallCarouselStep();
+  desktopIndex = desktopIndex === maxIndex
+    ? Math.floor((maxIndex - 1) / step) * step
+    : Math.max(0, desktopIndex - step);
+  updateCarousel();
+}
+
+function updateSmallCarouselControls() {
+  previousButton.disabled = !isSmallArticleView;
+  nextButton.disabled = isSmallArticleView && desktopIndex === getMaxSmallCarouselIndex();
+}
+
+function updateCarousel() {
+  if (isPagedCarouselMode) {
+    track.style.transform = 'translateX(0)';
+    updateMobileCarousel();
+    return;
+  }
+
+  bannerContent.classList.remove('is-page-view', 'is-dragging');
+  mobilePageTrack.style.transform = 'translateX(0)';
+
+  if (isSmallCarouselMode) {
+    bannerContent.classList.toggle('is-small-carousel-view', isSmallArticleView);
+    track.style.transform = `translateX(-${desktopIndex * getDesktopStep()}px)`;
+    updateSmallCarouselControls();
+    return;
+  }
+
+  bannerContent.classList.remove('is-small-carousel-view', 'is-tablet-carousel-view');
+  track.style.transform = `translateX(-${desktopIndex * getDesktopStep()}px)`;
+  updateDesktopControls();
 }
 
 function showNextMobilePage() {
@@ -175,7 +294,16 @@ function showPreviousMobilePage() {
 }
 
 function handleMobileSwipe(deltaX, deltaY) {
-  if (!isMobileMode || Math.abs(deltaX) < 28 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+  if ((!isPagedCarouselMode && !isSmallCarouselMode) || Math.abs(deltaX) < 28 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+    return;
+  }
+
+  if (isSmallCarouselMode) {
+    if (deltaX < 0) {
+      showNextSmallArticle();
+    } else {
+      showPreviousSmallArticle();
+    }
     return;
   }
 
@@ -187,7 +315,7 @@ function handleMobileSwipe(deltaX, deltaY) {
 }
 
 function handleCarouselKeys(event) {
-  if (isMobileMode) {
+  if (isPagedCarouselMode) {
     if (event.key === 'ArrowRight') {
       event.preventDefault();
       showNextMobilePage();
@@ -196,6 +324,19 @@ function handleCarouselKeys(event) {
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
       showPreviousMobilePage();
+    }
+    return;
+  }
+
+  if (isSmallCarouselMode) {
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      showNextSmallArticle();
+    }
+
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      showPreviousSmallArticle();
     }
     return;
   }
@@ -211,15 +352,40 @@ function handleCarouselKeys(event) {
   }
 }
 
-nextButton.addEventListener('click', showNextDesktopArticle);
-previousButton.addEventListener('click', showPreviousDesktopArticle);
+nextButton.addEventListener('click', () => {
+  if (isPagedCarouselMode) {
+    showNextMobilePage();
+    return;
+  }
+
+  if (isSmallCarouselMode) {
+    showNextSmallArticle();
+    return;
+  }
+
+  showNextDesktopArticle();
+});
+
+previousButton.addEventListener('click', () => {
+  if (isPagedCarouselMode) {
+    showPreviousMobilePage();
+    return;
+  }
+
+  if (isSmallCarouselMode) {
+    showPreviousSmallArticle();
+    return;
+  }
+
+  showPreviousDesktopArticle();
+});
 mobilePageNextButton.addEventListener('click', showNextMobilePage);
 mobilePagePreviousButton.addEventListener('click', showPreviousMobilePage);
 desktopViewport.addEventListener('keydown', handleCarouselKeys);
 mobilePageViewport.addEventListener('keydown', handleCarouselKeys);
 
 bannerContent.addEventListener('touchstart', (event) => {
-  if (!isMobileMode) {
+  if (!isPagedCarouselMode && !isSmallCarouselMode) {
     return;
   }
 
@@ -231,7 +397,7 @@ bannerContent.addEventListener('touchstart', (event) => {
 }, { passive: true });
 
 bannerContent.addEventListener('touchend', (event) => {
-  if (!isMobileMode || !isDragging) {
+  if ((!isPagedCarouselMode && !isSmallCarouselMode) || !isDragging) {
     return;
   }
 
@@ -248,16 +414,20 @@ bannerContent.addEventListener('touchcancel', () => {
 
 function syncResponsiveLayout() {
   const nextLayoutMode = getLayoutMode();
-  const nextMobileMode = nextLayoutMode === 'mobile';
+  const nextPagedCarouselMode = isPagedCarouselLayout(nextLayoutMode);
+  const nextSmallCarouselMode = isSmallCarouselLayout(nextLayoutMode);
 
-  if (nextMobileMode !== isMobileMode) {
+  if (nextPagedCarouselMode !== isPagedCarouselMode || nextSmallCarouselMode !== isSmallCarouselMode) {
     desktopIndex = 0;
     mobilePageIndex = -1;
+    isSmallArticleView = false;
   }
 
   layoutMode = nextLayoutMode;
-  isMobileMode = nextMobileMode;
+  isPagedCarouselMode = nextPagedCarouselMode;
+  isSmallCarouselMode = nextSmallCarouselMode;
   banner.dataset.layout = layoutMode;
+  updateCardCounts();
   updateCarousel();
 }
 
