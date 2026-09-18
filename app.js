@@ -209,7 +209,7 @@ function showPreviousDesktopArticle() {
 }
 
 function getSmallCarouselStep() {
-  return getInitialCardCount() >= 2 ? 2 : 1;
+  return 1;
 }
 
 function getMaxSmallCarouselIndex() {
@@ -217,7 +217,36 @@ function getMaxSmallCarouselIndex() {
   return Math.max(0, articles.length - visibleCards);
 }
 
+function keepsHeroWithTwoCards() {
+  return isSmallCarouselMode && getInitialCardCount() >= 2;
+}
+
+function getMaxHeroTwoCardIndex() {
+  return Math.max(0, articles.length - getInitialCardCount());
+}
+
+function showNextHeroTwoCards() {
+  const maxIndex = getMaxHeroTwoCardIndex();
+
+  if (desktopIndex < maxIndex) {
+    desktopIndex = Math.min(desktopIndex + 2, maxIndex);
+    updateCarousel();
+  }
+}
+
+function showPreviousHeroTwoCards() {
+  if (desktopIndex > 0) {
+    desktopIndex = Math.max(0, desktopIndex - 2);
+    updateCarousel();
+  }
+}
+
 function showNextSmallArticle() {
+  if (keepsHeroWithTwoCards()) {
+    showNextHeroTwoCards();
+    return;
+  }
+
   if (!isSmallArticleView) {
     isSmallArticleView = true;
     desktopIndex = 0;
@@ -233,6 +262,11 @@ function showNextSmallArticle() {
 }
 
 function showPreviousSmallArticle() {
+  if (keepsHeroWithTwoCards()) {
+    showPreviousHeroTwoCards();
+    return;
+  }
+
   if (!isSmallArticleView) {
     return;
   }
@@ -257,6 +291,11 @@ function updateSmallCarouselControls() {
   nextButton.disabled = isSmallArticleView && desktopIndex === getMaxSmallCarouselIndex();
 }
 
+function updateHeroTwoCardControls() {
+  previousButton.disabled = desktopIndex === 0;
+  nextButton.disabled = desktopIndex === getMaxHeroTwoCardIndex();
+}
+
 function updateCarousel() {
   if (isPagedCarouselMode) {
     track.style.transform = 'translateX(0)';
@@ -268,9 +307,15 @@ function updateCarousel() {
   mobilePageTrack.style.transform = 'translateX(0)';
 
   if (isSmallCarouselMode) {
-    bannerContent.classList.toggle('is-small-carousel-view', isSmallArticleView);
+    const keepHero = keepsHeroWithTwoCards();
+    bannerContent.classList.toggle('is-small-carousel-view', !keepHero && isSmallArticleView);
     track.style.transform = `translateX(-${desktopIndex * getDesktopStep()}px)`;
-    updateSmallCarouselControls();
+
+    if (keepHero) {
+      updateHeroTwoCardControls();
+    } else {
+      updateSmallCarouselControls();
+    }
     return;
   }
 
@@ -416,8 +461,10 @@ function syncResponsiveLayout() {
   const nextLayoutMode = getLayoutMode();
   const nextPagedCarouselMode = isPagedCarouselLayout(nextLayoutMode);
   const nextSmallCarouselMode = isSmallCarouselLayout(nextLayoutMode);
+  const nextInitialCardCount = getInitialCardCount();
+  const initialCardCountChanged = Number.parseInt(banner.dataset.initialCards, 10) !== nextInitialCardCount;
 
-  if (nextPagedCarouselMode !== isPagedCarouselMode || nextSmallCarouselMode !== isSmallCarouselMode) {
+  if (nextPagedCarouselMode !== isPagedCarouselMode || nextSmallCarouselMode !== isSmallCarouselMode || initialCardCountChanged) {
     desktopIndex = 0;
     mobilePageIndex = -1;
     isSmallArticleView = false;
