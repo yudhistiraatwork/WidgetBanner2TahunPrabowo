@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#b96789" />
+    <title>Kompas.com — iOS App Grid</title>
+    <style>
+      :root { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif; color: #fff; background: #b96789; }
+      * { box-sizing: border-box; }
+      html, body { min-height: 100%; margin: 0; }
+      body { min-height: 100svh; background: linear-gradient(161deg, #ffd8c1 0%, #ec99b0 36%, #7551a0 100%); }
+      body::before, body::after { position: fixed; z-index: 0; border-radius: 50%; content: ""; pointer-events: none; }
+      body::before { width: 80vw; height: 80vw; top: 10vh; left: -38vw; background: rgb(255 249 221 / .25); filter: blur(18px); }
+      body::after { width: 92vw; height: 92vw; right: -41vw; bottom: -30vh; background: rgb(107 45 150 / .46); filter: blur(25px); }
+      main { position: relative; z-index: 1; display: grid; min-height: 100svh; place-items: center; padding: max(22px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(22px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); }
+      .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: min(100%, 430px); gap: clamp(18px, 4.6vw, 30px) clamp(14px, 5vw, 28px); }
+      .app { min-width: 0; text-align: center; text-shadow: 0 1px 3px rgb(0 0 0 / .42); }
+      .icon { display: grid; width: 100%; aspect-ratio: 1; place-items: center; overflow: hidden; border-radius: 23%; background: #e5edf9; box-shadow: 0 3px 10px rgb(40 9 51 / .17); font-size: clamp(23px, 6.2vw, 31px); }
+      .icon img { width: 100%; height: 100%; object-fit: cover; }
+      .name { display: block; overflow: hidden; margin: 6px -7px 0; font-size: clamp(10px, 2.8vw, 13px); line-height: 1.1; text-overflow: ellipsis; white-space: nowrap; }
+      .safari { background: linear-gradient(135deg, #e9f8ff, #258de7); }
+      .camera { background: linear-gradient(135deg, #bd69dc, #fdbc68); }
+      .photos { background: linear-gradient(135deg, #f6c54e, #f44d70); }
+      .mail { background: linear-gradient(135deg, #3ab9f2, #2069cc); }
+      .weather { background: linear-gradient(135deg, #63c5ff, #2a78df); }
+      .notes { background: linear-gradient(180deg, #fff 0 20%, #fbd756 21%); color: #777; }
+      @media (min-width: 600px) { .grid { grid-template-columns: repeat(6, minmax(0, 1fr)); width: min(100%, 760px); gap: 34px 30px; } .name { font-size: 13px; } }
+      @media (min-width: 1000px) { .grid { grid-template-columns: repeat(8, minmax(0, 1fr)); width: min(100%, 1120px); gap: 38px 34px; } }
+      @media (max-height: 520px) and (orientation: landscape) { main { padding-block: 14px; } .grid { grid-template-columns: repeat(8, minmax(0, 1fr)); width: min(100%, 1000px); gap: 12px 18px; } .name { margin-top: 4px; } }
+    </style>
+  </head>
+  <body>
+    <main aria-label="Grid aplikasi iOS dengan thumbnail Kompas.com">
+      <section class="grid" aria-label="Aplikasi">
+        <div class="app"><div class="icon safari" aria-hidden="true">◉</div><span class="name">Safari</span></div>
+        <div class="app"><div class="icon photos" aria-hidden="true">✿</div><span class="name">Photos</span></div>
+        <div class="app"><div class="icon camera" aria-hidden="true">◉</div><span class="name">Camera</span></div>
+        <div class="app"><div class="icon mail" aria-hidden="true">✉</div><span class="name">Mail</span></div>
+        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/IdulFitri.png" alt="Kompas.com — Idul Fitri" /></div><span class="name">Kompas.com</span></div>
+        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/Imlek.png" alt="Kompas.com — Imlek" /></div><span class="name">Kompas.com</span></div>
+        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/Kartini.png" alt="Kompas.com — Kartini" /></div><span class="name">Kompas.com</span></div>
+        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/KebangkitanNasional.png" alt="Kompas.com — Kebangkitan Nasional" /></div><span class="name">Kompas.com</span></div>
+        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/Natal.png" alt="Kompas.com — Natal" /></div><span class="name">Kompas.com</span></div>
+        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/Pancasila.png" alt="Kompas.com — Pancasila" /></div><span class="name">Kompas.com</span></div>
+        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/Ramadhan.png" alt="Kompas.com — Ramadhan" /></div><span class="name">Kompas.com</span></div>
+        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/SumpahPemuda.png" alt="Kompas.com — Sumpah Pemuda" /></div><span class="name">Kompas.com</span></div>
+        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/TahunBaru.png" alt="Kompas.com — Tahun Baru" /></div><span class="name">Kompas.com</span></div>
+        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/TahunBaruIslam.png" alt="Kompas.com — Tahun Baru Islam" /></div><span class="name">Kompas.com</span></div>
+        <div class="app"><div class="icon weather" aria-hidden="true">☀</div><span class="name">Weather</span></div>
+        <div class="app"><div class="icon notes" aria-hidden="true">≡</div><span class="name">Notes</span></div>
+      </section>
+    </main>
+  </body>
+</html>
