@@ -1,4 +1,4 @@
-const articles = [
+const defaultArticles = [
   {
     image: './Assets/article-01.png',
     title: 'Disambut Gibran Pakai Peci, Prabowo Kembali ke Indonesia Usai Lawatan dari India',
@@ -40,6 +40,8 @@ const articles = [
     title: 'Wapres Gibran Pastikan Korban Keracunan MBG di Karo Dapat Perawatan Terbaik dan Biaya Ditanggung Pemerintah',
   },
 ];
+
+const articles = window.bannerArticles ?? defaultArticles;
 
 const bannerContent = document.querySelector('#banner-content');
 const banner = document.querySelector('.anniversary-banner');

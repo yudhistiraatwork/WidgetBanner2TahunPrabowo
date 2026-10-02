@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Widget banner biru 2 Tahun Pemerintahan Prabowo Gibran" />
+    <title>2 Tahun Prabowo Gibran — Biru</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;550;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css" />
+    <link rel="stylesheet" href="./styles.css?v=20260918-desktop-next-alignment" />
+    <link rel="stylesheet" href="./blue-variant.css?v=20260921-blue-variant" />
+  </head>
+  <body class="blue-variant">
+    <main class="widget-preview" aria-label="Pratinjau widget banner biru">
+      <section class="anniversary-banner" aria-label="2 Tahun Pemerintahan Prabowo Gibran">
+        <div class="banner-canvas">
+          <img class="map" src="./Assets/Indonesia%20Maps.png" alt="" aria-hidden="true" />
+
+          <div class="banner-content" id="banner-content">
+            <section class="hero" aria-label="2 Tahun Pemerintahan Prabowo Gibran">
+              <img class="hero-logo" src="./Assets/LogoKOMPAS.com.png" alt="Kompas.com" />
+
+              <div class="hero-copy">
+                <p class="eyebrow">2 Tahun Pemerintahan</p>
+                <h1>Prabowo<br />Gibran</h1>
+                <p class="hero-description">
+                  Ikuti berita terupdate di Aplikasi KOMPAS.com,
+                  <a href="#download-app">Download di sini</a>
+                </p>
+              </div>
+
+              <img class="flag" src="./Assets/Bendera.png" alt="" aria-hidden="true" />
+              <img class="leaders" src="./Assets/PrabsGibsFormal.png" alt="" aria-hidden="true" />
+            </section>
+
+            <section class="article-carousel" aria-label="Artikel terkait Prabowo Gibran">
+              <div class="article-viewport" tabindex="0">
+                <div class="article-track" id="article-track"></div>
+              </div>
+              <button class="carousel-previous" type="button" aria-label="Tampilkan artikel sebelumnya">
+                <i class="ph ph-caret-left" aria-hidden="true"></i>
+              </button>
+              <button class="carousel-next" type="button" aria-label="Tampilkan artikel berikutnya">
+                <i class="ph ph-caret-right" aria-hidden="true"></i>
+              </button>
+            </section>
+
+            <section class="mobile-article-pages" aria-label="Artikel terkait Prabowo Gibran">
+              <div class="mobile-page-viewport" tabindex="0">
+                <div class="mobile-page-track" id="mobile-page-track"></div>
+              </div>
+              <button class="mobile-page-previous" type="button" aria-label="Tampilkan artikel sebelumnya">
+                <i class="ph ph-caret-left" aria-hidden="true"></i>
+              </button>
+              <button class="mobile-page-next" type="button" aria-label="Tampilkan dua artikel berikutnya">
+                <i class="ph ph-caret-right" aria-hidden="true"></i>
+              </button>
+            </section>
+          </div>
+
+          <a class="app-download" id="download-app" href="#download-app" aria-label="Scan QR untuk mengunduh aplikasi Kompas.com">
+            <img class="qr-code" src="./Assets/QRApps.png" alt="QR code unduhan aplikasi Kompas.com" />
+            <span>Ikuti berita terupdate di<br />App KOMPAS.com.<br />Scan &amp; unduh sekarang</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      window.bannerArticles = [
+        { image: './Assets/article-01.png', title: '12 Bulan Prabowo–Gibran: Capaian, Kecemasan, dan Harapan ke Depan' },
+        { image: './Assets/article-02.png', title: '2 Tahun Pemerintahan: Warisan, Kontroversi, dan Jalan ke Depan' },
+        { image: './Assets/article-03.png', title: 'Memetakan Tahun Kedua: Apresiasi dan Kritik terhadap Era Prabowo–Gibran' },
+        { image: './Assets/article-01.png', title: 'Gibran Kunjungi Korban Keracunan MBG di Karo: Atas Nama Pemerintah Saya Mohon Maaf' },
+        { image: './Assets/article-02.png', title: 'Gibran Jenguk Korban Keracunan MBG di Karo, Janji Evaluasi Program' },
+        { image: './Assets/article-03.png', title: 'Saat Wapres Gibran Jenguk Siswa Korban Keracunan MBG di Karo, Minta Maaf Atas Nama Pemerintah' },
+        { image: './Assets/article-01.png', title: 'Wapres Gibran Kunjungi Korban Keracunan MBG di Karo' },
+        { image: './Assets/article-02.png', title: 'Dugaan Keracunan MBG di Karo, Gibran: Semua Biaya Pengobatan Kami Tanggung' },
+        { image: './Assets/article-03.png', title: 'Wapres Gibran Kunjungi Karo, Jenguk Korban Dugaan Keracunan MBG' },
+        { image: './Assets/article-01.png', title: 'Wapres Gibran Pastikan Korban Keracunan MBG di Karo Dapat Perawatan Terbaik dan Biaya Ditanggung Pemerintah' },
+      ];
+    </script>
+    <script src="./app.js?v=20260921-shared-article-data"></script>
+  </body>
+</html>

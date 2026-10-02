@@ -1,0 +1,169 @@
+:root {
+  --blue-banner: #0a2135;
+  --blue-banner-deep: #061827;
+}
+
+.blue-variant {
+  background: #eef1f3;
+}
+
+.blue-variant .anniversary-banner {
+  background: var(--blue-banner);
+}
+
+.blue-variant .map,
+.blue-variant .flag,
+.blue-variant .leaders {
+  display: none;
+}
+
+.blue-variant .hero {
+  background: url('./Assets/PrabowoBiru.jpg') center / cover no-repeat;
+}
+
+.blue-variant .hero::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0 0 0 auto;
+  width: 75px;
+  background: linear-gradient(90deg, rgb(10 33 53 / 0%), rgb(10 33 53 / 90%));
+  content: '';
+  pointer-events: none;
+}
+
+.blue-variant .hero-logo {
+  z-index: 2;
+  filter: brightness(0) invert(1) grayscale(1);
+}
+
+.blue-variant .hero-copy {
+  color: #fff;
+}
+
+.blue-variant .eyebrow {
+  color: #fff;
+  font-weight: 600;
+}
+
+.blue-variant .hero-copy h1 {
+  background: linear-gradient(90deg, #fff 50%, #999);
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+}
+
+.blue-variant .hero-description {
+  display: none;
+}
+
+.blue-variant .article-title,
+.blue-variant .mobile-page-track .article-title {
+  color: #fff;
+  font-weight: 600;
+}
+
+.blue-variant .article-track,
+.blue-variant .mobile-page-track {
+  gap: 12px;
+}
+
+.blue-variant .app-download {
+  background: transparent;
+  color: #fff;
+}
+
+.blue-variant .carousel-next,
+.blue-variant .carousel-previous,
+.blue-variant .mobile-page-next,
+.blue-variant .mobile-page-previous {
+  color: var(--blue-banner);
+}
+
+.blue-variant .anniversary-banner[data-layout="desktop"] .hero-copy {
+  top: 54px;
+  left: 45px;
+  width: 107px;
+}
+
+.blue-variant .anniversary-banner[data-layout="desktop"] .hero-copy h1 {
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.blue-variant .anniversary-banner[data-layout="desktop"] .article-carousel {
+  top: 12px;
+  right: auto;
+  left: 354px;
+  width: 504px;
+}
+
+.blue-variant .anniversary-banner[data-layout="desktop"] .article-track {
+  gap: 12px;
+}
+
+.blue-variant .anniversary-banner[data-layout="desktop"] .article-title {
+  -webkit-line-clamp: 4;
+}
+
+.blue-variant .anniversary-banner[data-layout="desktop"] .carousel-next {
+  right: -12px;
+}
+
+.blue-variant .anniversary-banner[data-layout^="tablet-"][data-initial-cards="2"] .article-carousel {
+  width: 332px;
+}
+
+.blue-variant .anniversary-banner[data-layout^="tablet-"][data-initial-cards="3"] .article-carousel {
+  width: 504px;
+}
+
+.blue-variant .anniversary-banner[data-layout^="tablet-"][data-initial-cards="4"] .article-carousel {
+  width: 676px;
+}
+
+.blue-variant .anniversary-banner[data-layout="compact-1"] .banner-content.is-small-carousel-view .article-carousel,
+.blue-variant .anniversary-banner[data-layout="tablet-1"] .banner-content.is-small-carousel-view .article-carousel {
+  background: var(--blue-banner);
+}
+
+.blue-variant .anniversary-banner[data-layout="compact-1"][data-expanded-cards="2"] .banner-content.is-small-carousel-view .article-carousel,
+.blue-variant .anniversary-banner[data-layout="tablet-1"][data-expanded-cards="2"] .banner-content.is-small-carousel-view .article-carousel {
+  width: 332px;
+}
+
+.blue-variant .anniversary-banner[data-layout="compact-1"][data-expanded-cards="3"] .banner-content.is-small-carousel-view .article-carousel,
+.blue-variant .anniversary-banner[data-layout="tablet-1"][data-expanded-cards="3"] .banner-content.is-small-carousel-view .article-carousel {
+  width: 504px;
+}
+
+@container (max-width: 1119px) {
+  .blue-variant .anniversary-banner:not([data-layout="mobile"]) .article-carousel {
+    top: 12px;
+  }
+
+  .blue-variant .anniversary-banner:not([data-layout="mobile"]) .article-title {
+    -webkit-line-clamp: 3;
+  }
+}
+
+@container (max-width: 412px) {
+  .blue-variant .anniversary-banner {
+    background: var(--blue-banner);
+  }
+
+  .blue-variant .hero {
+    background-position: 58% center;
+  }
+
+  .blue-variant .mobile-article-pages {
+    background: var(--blue-banner);
+  }
+
+  .blue-variant .mobile-page-track {
+    gap: 8px;
+  }
+
+  .blue-variant .mobile-page-track .article-title {
+    -webkit-line-clamp: 3;
+  }
+}
