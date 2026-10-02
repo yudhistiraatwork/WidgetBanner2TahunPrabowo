@@ -4,55 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0d4f91" />
-    <title>Kompas.com — Android App Grid</title>
+    <title>Kompas.com — Galaxy S25 App Grid</title>
     <style>
-      :root { font-family: Roboto, Arial, sans-serif; color: #fff; background: #0d4f91; }
+      :root { font-family: SamsungOne, Roboto, Arial, sans-serif; color: #fff; background: #0d4f91; }
       * { box-sizing: border-box; }
       html, body { min-height: 100%; margin: 0; }
-      body { min-height: 100svh; background: linear-gradient(155deg, #0d4f91 0%, #1070b7 45%, #dac087 100%); }
+      body { display: grid; min-height: 100svh; place-items: center; background: linear-gradient(155deg, #0d4f91 0%, #1070b7 45%, #dac087 100%); }
       body::before, body::after { position: fixed; z-index: 0; border-radius: 50%; content: ""; pointer-events: none; }
       body::before { width: 80vw; height: 80vw; top: 14vh; left: -32vw; background: rgb(77 176 229 / .42); }
       body::after { width: 92vw; height: 92vw; right: -39vw; bottom: -31vh; background: rgb(255 216 111 / .38); }
-      main { position: relative; z-index: 1; display: grid; min-height: 100svh; place-items: center; padding: max(22px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(22px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); }
-      .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: min(100%, 430px); gap: clamp(18px, 4.6vw, 30px) clamp(14px, 5vw, 28px); }
+      main { position: relative; z-index: 1; display: grid; width: min(100%, 360px); height: min(100svh, 780px); place-items: center; padding: 22px 24px; }
+      .grid { display: grid; grid-template-columns: repeat(4, 60px); width: 100%; justify-content: space-between; row-gap: 18px; }
       .app { min-width: 0; text-align: center; text-shadow: 0 1px 3px rgb(0 0 0 / .44); }
-      .icon { display: grid; width: 100%; aspect-ratio: 1; place-items: center; overflow: hidden; border-radius: 21%; background: #e5edf9; box-shadow: 0 4px 10px rgb(0 0 0 / .18); font-size: clamp(22px, 6vw, 31px); }
+      .icon { display: grid; width: 60px; height: 60px; place-items: center; overflow: hidden; border-radius: 18px; background: #e5edf9; box-shadow: 0 2px 6px rgb(0 0 0 / .14); font-size: 24px; }
       .icon img { width: 100%; height: 100%; object-fit: cover; }
-      .name { display: block; overflow: hidden; margin: 7px -7px 0; font-size: clamp(10px, 2.8vw, 13px); line-height: 1.1; text-overflow: ellipsis; white-space: nowrap; }
+      .name { display: block; overflow: hidden; margin: 5px -8px 0; font-size: 11px; line-height: 1.15; text-overflow: ellipsis; white-space: nowrap; }
       .chrome { background: linear-gradient(135deg, #f25b55 0 43%, #f7ca59 44% 58%, #4dbb6a 59%); }
       .maps { background: linear-gradient(135deg, #5ccc83 0 44%, #3f82df 45%); }
       .camera { background: linear-gradient(135deg, #c669df, #ffbd6c); }
       .photos { background: linear-gradient(135deg, #f6c44e, #f44d70); }
       .weather { background: linear-gradient(135deg, #63c5ff, #2a78df); }
-      .calendar { background: #fff; color: #ef4e3f; font-size: 32px; font-weight: 700; }
-      @media (min-width: 600px) { .grid { grid-template-columns: repeat(6, minmax(0, 1fr)); width: min(100%, 760px); gap: 34px 30px; } .name { font-size: 13px; } }
-      @media (min-width: 1000px) { .grid { grid-template-columns: repeat(8, minmax(0, 1fr)); width: min(100%, 1120px); gap: 38px 34px; } }
-      @media (max-height: 520px) and (orientation: landscape) { main { padding-block: 14px; } .grid { grid-template-columns: repeat(8, minmax(0, 1fr)); width: min(100%, 1000px); gap: 12px 18px; } .name { margin-top: 4px; } }
+      .calendar { background: #fff; color: #ef4e3f; font-size: 28px; font-weight: 700; }
     </style>
   </head>
   <body>
-    <main aria-label="Grid aplikasi Android dengan thumbnail Kompas.com">
+    <main aria-label="Grid aplikasi Samsung Galaxy S25 dengan thumbnail Kompas.com">
       <section class="grid" aria-label="Aplikasi">
         <div class="app"><div class="icon chrome" aria-hidden="true">◉</div><span class="name">Chrome</span></div>
         <div class="app"><div class="icon maps" aria-hidden="true">⌖</div><span class="name">Maps</span></div>
         <div class="app"><div class="icon camera" aria-hidden="true">◉</div><span class="name">Camera</span></div>
         <div class="app"><div class="icon photos" aria-hidden="true">✿</div><span class="name">Photos</span></div>
-        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/Hari%20Raya%20Paskah.png" alt="Kompas.com — Hari Raya Paskah" /></div><span class="name">Kompas.com</span></div>
-        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/KenaikanYesusKristus.png" alt="Kompas.com — Kenaikan Yesus Kristus" /></div><span class="name">Kompas.com</span></div>
-        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/Wafat%20Isa%20Almasih.png" alt="Kompas.com — Wafat Isa Almasih" /></div><span class="name">Kompas.com</span></div>
         <div class="app"><div class="icon"><img src="./Assets/Thumbnail/IdulFitri.png" alt="Kompas.com — Idul Fitri" /></div><span class="name">Kompas.com</span></div>
-        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/IdulAdha.png" alt="Kompas.com — Idul Adha" /></div><span class="name">Kompas.com</span></div>
-        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/Ramadhan.png" alt="Kompas.com — Ramadhan" /></div><span class="name">Kompas.com</span></div>
         <div class="app"><div class="icon"><img src="./Assets/Thumbnail/HUTKemerdekaanRI.png" alt="Kompas.com — HUT Kemerdekaan RI" /></div><span class="name">Kompas.com</span></div>
-        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/HariAnakNasional.png" alt="Kompas.com — Hari Anak Nasional" /></div><span class="name">Kompas.com</span></div>
-        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/HariPahlawan.png" alt="Kompas.com — Hari Pahlawan" /></div><span class="name">Kompas.com</span></div>
         <div class="app"><div class="icon"><img src="./Assets/Thumbnail/Imlek.png" alt="Kompas.com — Imlek" /></div><span class="name">Kompas.com</span></div>
-        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/Kartini.png" alt="Kompas.com — Kartini" /></div><span class="name">Kompas.com</span></div>
-        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/KebangkitanNasional.png" alt="Kompas.com — Kebangkitan Nasional" /></div><span class="name">Kompas.com</span></div>
         <div class="app"><div class="icon"><img src="./Assets/Thumbnail/Natal.png" alt="Kompas.com — Natal" /></div><span class="name">Kompas.com</span></div>
-        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/SumpahPemuda.png" alt="Kompas.com — Sumpah Pemuda" /></div><span class="name">Kompas.com</span></div>
-        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/Tahun%20Baru.png" alt="Kompas.com — Tahun Baru" /></div><span class="name">Kompas.com</span></div>
-        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/TahunBaruIslam.png" alt="Kompas.com — Tahun Baru Islam" /></div><span class="name">Kompas.com</span></div>
         <div class="app"><div class="icon weather" aria-hidden="true">☀</div><span class="name">Weather</span></div>
         <div class="app"><div class="icon calendar" aria-hidden="true">1</div><span class="name">Calendar</span></div>
       </section>
