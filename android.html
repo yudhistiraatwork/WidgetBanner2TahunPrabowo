@@ -61,5 +61,48 @@
         <div class="app"><div class="icon calendar" aria-hidden="true">1</div><span class="name">Calendar</span></div>
       </section>
     </main>
+    <script>
+      (() => {
+        const thumbnails = {
+          "SumpahPemudaDark.jpg": [1, "Sumpah Pemuda"],
+          "PahlawanDark.jpg": [2, "Hari Pahlawan"],
+          "NatalDark.jpg": [3, "Natal"],
+          "NatalLight.jpg": [4, "Natal"],
+          "TahunBaruDark.jpg": [5, "Tahun Baru"],
+          "TahunBaruLight.jpg": [6, "Tahun Baru"],
+          "ImlekDark.jpg": [7, "Imlek"],
+          "ImlekLight.png": [8, "Imlek"],
+          "RamadhanDark.jpg": [9, "Ramadhan"],
+          "RamadhanLight.jpg": [10, "Ramadhan"],
+          "LebaranDark.jpg": [11, "Lebaran"],
+          "LebaranLight.png": [12, "Lebaran"],
+          "KartiniDark.jpg": [13, "Kartini"],
+          "KartiniLight.jpg": [14, "Kartini"],
+          "PendidikanNasionalDark.jpg": [15, "Pendidikan Nasional"],
+          "PendidikanNasionalLight.jpg": [16, "Pendidikan Nasional"],
+          "IdulAdhaLight.jpg": [17, "Idul Adha"],
+          "PancasilaDark.jpg": [18, "Pancasila"],
+          "PancasilaLight.jpg": [19, "Pancasila"],
+          "HariAnakDark.jpg": [20, "Hari Anak"],
+          "HariAnakLight.jpg": [21, "Hari Anak"],
+          "HUTRIDark.jpg": [22, "HUT RI"],
+          "HUTRILight.jpg": [23, "HUT RI"]
+        };
+        const grid = document.querySelector(".grid");
+        const thumbnailApps = [...grid.querySelectorAll(".app")].filter((app) => app.querySelector("img"));
+        const firstUtilityApp = [...grid.children].find((app) => app.querySelector(".weather, .calendar"));
+
+        thumbnailApps
+          .map((app) => {
+            const image = app.querySelector("img");
+            const filename = image.getAttribute("src").split("/").pop();
+            const [order, label] = thumbnails[filename];
+            app.querySelector(".name").textContent = label;
+            return { app, order };
+          })
+          .sort((a, b) => a.order - b.order)
+          .forEach(({ app }) => grid.insertBefore(app, firstUtilityApp));
+      })();
+    </script>
   </body>
 </html>
