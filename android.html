@@ -89,7 +89,17 @@
           "HUTRILight.jpg": [23, "HUT RI"]
         };
         const grid = document.querySelector(".grid");
-        const thumbnailApps = [...grid.querySelectorAll(".app")].filter((app) => app.querySelector("img"));
+        // Dark thumbnails are temporarily hidden, except for the campaign priorities and Pancasila.
+        const visibleDarkThumbnails = new Set(["SumpahPemudaDark.jpg", "PahlawanDark.jpg", "PancasilaDark.jpg"]);
+        const hiddenLightThumbnails = new Set(["PancasilaLight.jpg"]);
+        const thumbnailApps = [...grid.querySelectorAll(".app")].filter((app) => {
+          const image = app.querySelector("img");
+          if (!image) return false;
+          const filename = image.getAttribute("src").split("/").pop();
+          const hideThumbnail = (filename.includes("Dark") && !visibleDarkThumbnails.has(filename)) || hiddenLightThumbnails.has(filename);
+          app.hidden = hideThumbnail;
+          return !hideThumbnail;
+        });
         const firstUtilityApp = [...grid.children].find((app) => app.querySelector(".weather, .calendar"));
 
         thumbnailApps
