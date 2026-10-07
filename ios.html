@@ -35,7 +35,7 @@
         <div class="app"><div class="icon camera" aria-hidden="true">◉</div><span class="name">Camera</span></div>
         <div class="app"><div class="icon mail" aria-hidden="true">✉</div><span class="name">Mail</span></div>
         <div class="app"><div class="icon"><img src="./Assets/Thumbnail/SumpahPemudaDark.jpg" alt="Kompas.com — Sumpah Pemuda, dark" /></div><span class="name">Kompas.com</span></div>
-        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/PahlawanDark.jpg" alt="Kompas.com — Hari Pahlawan, dark" /></div><span class="name">Kompas.com</span></div>
+        <div class="app"><div class="icon"><img src="./Assets/Thumbnail/PahlawanDark.jpg" alt="Kompas.com — Sumpah Pemuda dan Hari Pahlawan, dark" /></div><span class="name">Sumpah Pemuda &amp; Hari Pahlawan</span></div>
         <div class="app"><div class="icon"><img src="./Assets/Thumbnail/NatalDark.jpg" alt="Kompas.com — Natal, dark" /></div><span class="name">Kompas.com</span></div>
         <div class="app"><div class="icon"><img src="./Assets/Thumbnail/NatalLight.jpg" alt="Kompas.com — Natal, light" /></div><span class="name">Kompas.com</span></div>
         <div class="app"><div class="icon"><img src="./Assets/Thumbnail/HUTRIDark.jpg" alt="Kompas.com — HUT RI, dark" /></div><span class="name">Kompas.com</span></div>
@@ -65,7 +65,7 @@
       (() => {
         const thumbnails = {
           "SumpahPemudaDark.jpg": [1, "Sumpah Pemuda"],
-          "PahlawanDark.jpg": [2, "Hari Pahlawan"],
+          "PahlawanDark.jpg": [1, "Sumpah Pemuda & Hari Pahlawan"],
           "NatalDark.jpg": [3, "Natal"],
           "NatalLight.jpg": [4, "Natal"],
           "TahunBaruDark.jpg": [5, "Tahun Baru"],
@@ -89,14 +89,22 @@
           "HUTRILight.jpg": [23, "HUT RI"]
         };
         const grid = document.querySelector(".grid");
-        // Dark thumbnails are temporarily hidden, except for the campaign priorities and Pancasila.
-        const visibleDarkThumbnails = new Set(["SumpahPemudaDark.jpg", "PahlawanDark.jpg", "PancasilaDark.jpg"]);
-        const hiddenLightThumbnails = new Set(["PancasilaLight.jpg"]);
+        // Only the combined Pahlawan asset and Pancasila remain visible from the dark collection.
+        const visibleDarkThumbnails = new Set(["PahlawanDark.jpg", "PancasilaDark.jpg"]);
+        const hiddenThumbnails = new Set([
+          "SumpahPemudaDark.jpg",
+          "LebaranDark.jpg", "LebaranLight.png",
+          "KartiniDark.jpg", "KartiniLight.jpg",
+          "PendidikanNasionalDark.jpg", "PendidikanNasionalLight.jpg",
+          "IdulAdhaLight.jpg",
+          "HariAnakDark.jpg", "HariAnakLight.jpg",
+          "PancasilaLight.jpg"
+        ]);
         const thumbnailApps = [...grid.querySelectorAll(".app")].filter((app) => {
           const image = app.querySelector("img");
           if (!image) return false;
           const filename = image.getAttribute("src").split("/").pop();
-          const hideThumbnail = (filename.includes("Dark") && !visibleDarkThumbnails.has(filename)) || hiddenLightThumbnails.has(filename);
+          const hideThumbnail = (filename.includes("Dark") && !visibleDarkThumbnails.has(filename)) || hiddenThumbnails.has(filename);
           app.hidden = hideThumbnail;
           return !hideThumbnail;
         });
