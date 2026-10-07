@@ -89,8 +89,8 @@
           "HUTRILight.jpg": [23, "HUT RI"]
         };
         const grid = document.querySelector(".grid");
-        // Only the combined Pahlawan asset and Pancasila remain visible from the dark collection.
-        const visibleDarkThumbnails = new Set(["PahlawanDark.jpg", "PancasilaDark.jpg"]);
+        // The active dark assets are the combined Pahlawan and updated Tahun Baru variants.
+        const visibleDarkThumbnails = new Set(["PahlawanDark.jpg", "TahunBaruDark.jpg"]);
         const hiddenThumbnails = new Set([
           "SumpahPemudaDark.jpg",
           "LebaranDark.jpg", "LebaranLight.png",
@@ -98,7 +98,7 @@
           "PendidikanNasionalDark.jpg", "PendidikanNasionalLight.jpg",
           "IdulAdhaLight.jpg",
           "HariAnakDark.jpg", "HariAnakLight.jpg",
-          "PancasilaLight.jpg"
+          "TahunBaruLight.jpg"
         ]);
         const thumbnailApps = [...grid.querySelectorAll(".app")].filter((app) => {
           const image = app.querySelector("img");
